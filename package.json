@@ -1,0 +1,23 @@
+{
+  "name": "tomoko",
+  "version": "1.0.0",
+  "description": "智子",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "supervisor index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ShaoGongBra/Tomoko.git"
+  },
+  "author": "ShaoGongBra",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ShaoGongBra/Tomoko/issues"
+  },
+  "homepage": "https://github.com/ShaoGongBra/Tomoko#readme",
+  "dependencies": {
+    "supervisor": "^0.12.0"
+  }
+}
