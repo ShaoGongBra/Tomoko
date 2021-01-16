@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/ShaoGongBra/Tomoko#readme",
   "dependencies": {
+    "koa": "^2.13.1",
+    "koa-compose": "^4.1.0",
     "supervisor": "^0.12.0"
   }
 }
