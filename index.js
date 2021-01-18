@@ -24,12 +24,11 @@ for (const f of files) {
     router.get(path, mapping[url])
     router.post(path, mapping[url])
   }
-  if (f === 'index.js' && mapping.index) {
+  if (f === 'index/index.js' && mapping.index) {
     router.get('/', mapping.index)
     router.post('/', mapping.index)
   }
 }
-console.log(files)
 
 // 日志函数
 function logger(format = ':method :time :url') {
@@ -45,7 +44,19 @@ function logger(format = ':method :time :url') {
   }
 }
 
-app.use(compose([logger(), bodyParser(), router.routes()]))
+// 错误处理
+function error() {
+  return async (ctx, next) => {
+    try {
+      await next()
+    } catch (error) {
+      ctx.body = '请求错误'
+      console.log(error)
+    }
+  }
+}
+
+app.use(compose([error(), logger(), bodyParser(), router.routes()]))
 
 app.listen(3000)
 console.log('http://127.0.0.1:3000')
