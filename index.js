@@ -1,5 +1,3 @@
-const start = require('./framework/app')
-
 // 项目根目录
 global.__rootdir = __dirname
 // app目录
@@ -8,4 +6,4 @@ global.__appdir = __dirname + '/app'
 /**
  * 启动app
  */
-start(3000)
+require('./framework/app')(3000)

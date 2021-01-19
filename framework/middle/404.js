@@ -1,9 +1,8 @@
 module.exports = () => {
   return async (ctx, next) => {
-    try {
-      await next()
-    } catch (error) {
-      ctx.body = '请求错误'
+    await next()
+    if (ctx.response.status === 404) {
+      ctx.body = '404'
     }
   }
 }
