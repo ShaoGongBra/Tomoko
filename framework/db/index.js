@@ -1,19 +1,29 @@
-const mysql = require('mysql')
+const Sequelize = require('sequelize')
 const config = require(__rootdir + '/config/db')
 
 module.exports = app => {
-  var connection = mysql.createConnection(config)
-
-  connection.connect()
-
-  connection.query('select * from user where 1', function (error, results, fields) {
-    if (error) throw error;
-    console.log('返回值: ', results)
+  const sequelize = new Sequelize(config.database, config.user, config.password, {
+    host: config.host,
+    dialect: 'mysql',
+    pool: {
+      max: 5,
+      min: 0,
+      idle: 30000
+    }
   })
-
-  connection.end()
+  const User = sequelize.define('user', {
+    id: {
+      type: Sequelize.INET(10),
+      primaryKey: true
+    },
+    username: Sequelize.STRING(255),
+    password: Sequelize.STRING(255),
+    status: Sequelize.BOOLEAN
+  }, {
+    timestamps: false
+  })
   app.context.db = {
-    name: '数据库链接工具'
+    name: '数据库链接工具',
+    User
   }
-
 }
