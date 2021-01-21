@@ -11,6 +11,15 @@ module.exports = app => {
       idle: 30000
     }
   })
+  app.use(async (ctx, next) => {
+    try {
+      await sequelize.authenticate()
+      await next()
+    } catch (error) {
+      ctx.body = error
+    }
+  })
+
   const User = sequelize.define('user', {
     id: {
       type: Sequelize.INET(10),
@@ -23,7 +32,7 @@ module.exports = app => {
     timestamps: false
   })
   app.context.db = {
-    name: '数据库链接工具',
+    sequelize,
     User
   }
 }
