@@ -11,9 +11,13 @@ module.exports = app => {
       idle: 30000
     }
   })
+  let authenticate = false
   app.use(async (ctx, next) => {
     try {
-      await sequelize.authenticate()
+      if (!authenticate) {
+        await sequelize.authenticate()
+        authenticate = true
+      }
       await next()
     } catch (error) {
       ctx.body = error
