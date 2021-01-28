@@ -9,6 +9,9 @@ module.exports = app => {
       max: 5,
       min: 0,
       idle: 30000
+    },
+    define: {
+      freezeTableName: true, // 强制表名称等于模型名称
     }
   })
   let authenticate = false
