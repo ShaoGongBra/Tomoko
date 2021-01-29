@@ -1,4 +1,4 @@
-const Sequelize = require('sequelize')
+const { Sequelize, DataTypes } = require('sequelize')
 const config = require(__rootdir + '/config/db')
 
 module.exports = app => {
@@ -28,16 +28,43 @@ module.exports = app => {
   })
 
   const User = sequelize.define('user', {
-    id: {
-      type: Sequelize.INET(10),
-      primaryKey: true
+    user_id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
     },
-    username: Sequelize.STRING(255),
-    password: Sequelize.STRING(255),
-    status: Sequelize.BOOLEAN
+    username: DataTypes.STRING,
+    password: DataTypes.STRING,
+    phone: {
+      type: DataTypes.STRING
+    },
+    email: {
+      type: DataTypes.STRING
+    },
+    status: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true
+    }
   }, {
     timestamps: false
   })
+  // const UserToken = sequelize.define('userToken', {
+  //   token_id: {
+  //     type: Sequelize.INTEGER(10),
+  //     primaryKey: true
+  //   },
+  //   username: Sequelize.STRING(255),
+  //   password: Sequelize.STRING(255),
+  //   phone: {
+  //     type: Sequelize.STRING(15)
+  //   },
+  //   email: {
+  //     type: Sequelize.STRING(255)
+  //   },
+  //   status: Sequelize.BOOLEAN
+  // }, {
+  //   timestamps: false
+  // })
   app.context.db = {
     sequelize,
     User
