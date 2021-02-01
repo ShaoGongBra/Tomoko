@@ -28,45 +28,62 @@ module.exports = app => {
   })
 
   const User = sequelize.define('user', {
-    user_id: {
+    id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      autoIncrement: true
+      autoIncrement: true,
+      unique: 'user'
     },
     username: DataTypes.STRING,
     password: DataTypes.STRING,
     phone: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      unique: 'user'
     },
     email: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      unique: 'user'
     },
     status: {
       type: DataTypes.BOOLEAN,
       defaultValue: true
     }
   }, {
-    timestamps: false
+    
   })
-  // const UserToken = sequelize.define('userToken', {
-  //   token_id: {
-  //     type: Sequelize.INTEGER(10),
-  //     primaryKey: true
-  //   },
-  //   username: Sequelize.STRING(255),
-  //   password: Sequelize.STRING(255),
-  //   phone: {
-  //     type: Sequelize.STRING(15)
-  //   },
-  //   email: {
-  //     type: Sequelize.STRING(255)
-  //   },
-  //   status: Sequelize.BOOLEAN
-  // }, {
-  //   timestamps: false
-  // })
+  const UserToken = sequelize.define('userToken', {
+    id: {
+      type: Sequelize.INTEGER(10),
+      primaryKey: true,
+      autoIncrement: true,
+      unique: 'token'
+    },
+    token: {
+      type: DataTypes.STRING,
+      unique: 'token'
+    },
+    type: {
+      type: DataTypes.STRING,
+      defaultValue: 'web',
+      comment: '设备类型 web:网页 app:App mini:小程序',
+      unique: 'type'
+    },
+    mark: {
+      type: DataTypes.STRING(1000),
+      comment: '设备标识 浏览器ua或者设备标识'
+    },
+    date: {
+      type: DataTypes.DATE
+    }
+  }, {
+    
+  })
+  User.hasMany(UserToken)
+  UserToken.belongsTo(User)
+
   app.context.db = {
     sequelize,
-    User
+    User,
+    UserToken
   }
 }

@@ -8,7 +8,7 @@ module.exports = class Index {
     //   password: '3289743689sdfnj',
     //   status: true
     // })
-    // await ctx.db.User.sync({ alter: true })
+    await ctx.db.sequelize.sync({ alter: true })
     const list = await ctx.db.User.findAll({
       attributes: {
         exclude: ['status', 'password']
